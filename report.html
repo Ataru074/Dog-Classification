@@ -12116,7 +12116,7 @@ Percentage of dog faces detected as human: 12%.
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Question 2:</strong> This algorithmic choice necessitates that we communicate to the user that we accept human images only when they provide a clear view of a face (otherwise, we risk having unneccessarily frustrated users!). In your opinion, is this a reasonable expectation to pose on the user? If not, can you think of a way to detect humans in images that does not necessitate an image with a clearly presented face?</p>
-<p><strong>Answer:</strong></p>
+<p><strong>Answer:</strong> I think it is a reasonable expectation for the user. We could train a model using sequences of networks where we go from identifying human details such as eyes, ears, nose, mouth, chin, neck and so on, feeding a network which, based on the spatial positions of the identified features they are coherent with the positions of a human skull. It seems that such algorithm could do a better job with a partial view of the face, but it would also need a way greater training set and might not be as quick and accurate.</p>
 <p>We suggest the face detector from OpenCV as a potential way to detect human images in your algorithm, but you are free to explore other approaches, especially approaches that make use of deep learning :).  Please use the code cell below to design and test your own face detection algorithm.  If you decide to pursue this <em>optional</em> task, report performance on each of the datasets.</p>
 
 </div>
@@ -13772,7 +13772,10 @@ test_{network} = bottleneck_features['test']</code></pre>
 </code></pre>
 <p><strong>Question 5:</strong> Outline the steps you took to get to your final CNN architecture and your reasoning at each step.  Describe why you think the architecture is suitable for the current problem.</p>
 <p><strong>Answer:</strong> 
-The Xception network from Francois Chollet is a great starting base for classification problems. I just added few layers with enough parameters and dropouts to reduce overfitting over the available data. It seems that the major holdup is augmentation of the training data.</p>
+The Xception network from Francois Chollet is a great starting base for classification problems. I just added few layers with enough parameters and dropouts to reduce overfitting over the available data. It seems that the major holdup is augmentation of the training data.
+Also, having a pre-trained network helped greatly in achieving a higher accuracy in a comparable amount of computation time. The dataset provided is not large enough to obtain it.
+For example, the original network which I trained, needed almost 1.5 hours to run, with image augmentation, to obtain a result just marginally better than the pretrained VGG16, which trained in a matter of seconds.
+The proof of the power of pretrained networks came with the Xception, which trained in a comparable time with my network, but obtained an accuracy above 85%, versus less than 60%.</p>
 
 </div>
 </div>
